@@ -63,23 +63,23 @@ public class HomeController {
         return modelAndView;
     }
 
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable Long id) {
+    @GetMapping("/delete")
+    public ModelAndView delete(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/home");
         cityService.remove(id);
         return modelAndView;
     }
 
-    @GetMapping("/view/{id}")
-    public ModelAndView detail(@PathVariable Long id) {
+    @GetMapping("/view")
+    public ModelAndView detail(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("detail");
         Optional<City> city = cityService.findById(id);
         modelAndView.addObject("city", city.get());
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable Long id) {
+    @GetMapping("/edit")
+    public ModelAndView edit(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("edit");
         Optional<City> city = cityService.findById(id);
         Iterable<Country> countries = countryService.findAllCountries();
@@ -88,8 +88,8 @@ public class HomeController {
         return modelAndView;
     }
 
-    @PostMapping("/update/{id}")
-    public ModelAndView update(@PathVariable Long id, @ModelAttribute City city) {
+    @PostMapping("/update")
+    public ModelAndView update(@RequestParam("id") Long id, @ModelAttribute City city) {
         ModelAndView modelAndView = new ModelAndView("edit");
         city.setId(id);
         City cityEdit = cityService.save(city);
